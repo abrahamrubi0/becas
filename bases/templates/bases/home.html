@@ -1,0 +1,79 @@
+{% extends 'base/base.html' %}
+{% block js_page %}
+
+<!-- Aqui configuramos que tipo de grafica queremos y que es lo que va a mostrar (en éste caso el total de becas, mandando llamar nuestra función) -->
+<script>
+$(document).ready(function(){
+    var ctx = document.getElementById( "pieChart" );
+    ctx.height = 100;
+    var myChart = new Chart( ctx, {
+        type: 'pie',
+        data: {
+            datasets: [ {
+                data: [ '{{becas}}', '{{b}}', '{{n}}'],
+                backgroundColor: [
+                                    "rgba(255,0,0,0.3)",
+                                    "rgba(0,255,0,0.3)",
+                                    "rgba(255,255,0,0.3)",
+                                    "rgba(192,192,192,0.3)"
+                                ],
+                hoverBackgroundColor: [
+                                    "rgba(255,0,0,0.3)",
+                                    "rgba(0,255,0,0.3)",
+                                    "rgba(255,255,0,0.3)",
+                                    "rgba(192,192,192,0.3)"
+                                ]
+
+                            } ],
+            labels: ['Total de Registros', 'Becas Entregadas', 'Becas No Entregadas' ]
+        },
+        options: {
+            responsive: true
+        }
+    } );
+
+
+});
+</script>
+
+{% endblock %}
+{% block page_content %}
+<div class="breadcrumbs">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Escritorio</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li class="active">Escritorio</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content mt-3">
+
+            <div class="col-sm-12">
+                <div class="alert  alert-success alert-dismissible fade show" role="alert">
+                    <span class="badge badge-pill badge-success">Bienvenido</span> {{ user.first_name | upper}} <!-- Esto sirve para mostrar el primer nombre del usuario logueado -->
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+
+
+        </div> <!-- .content -->
+
+
+
+            <canvas id="pieChart"></canvas>
+
+
+{% endblock %}
